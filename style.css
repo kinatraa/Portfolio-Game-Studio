@@ -21,35 +21,74 @@ body {
     linear-gradient(rgba(5,10,20,0.9), rgba(5,10,20,0.9)),
     url("background.png") center/cover no-repeat;
   z-index: -1;
-  filter: blur(0.2px);
 }
 
 /* ===== HEADER ===== */
 header {
   text-align: center;
-  padding: 110px 20px 70px;
+  padding: 130px 20px 80px;
+  position: relative;
 }
 
 header h1 {
-  font-size: 4rem;
-  font-weight: 700;
+  font-size: 5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: none;
 
-  color: #00e5ff;
+  background: linear-gradient(
+    90deg,
+    #7cf3ff,
+    #4facfe,
+    #b56cff,
+    #ff4fd8
+  );
+  background-size: 200% auto;
 
-  background: linear-gradient(90deg, #00e5ff, #ff4fd8);
   background-clip: text;
   -webkit-background-clip: text;
-
   color: transparent;
   -webkit-text-fill-color: transparent;
-}
 
+  /* Shadow để nổi trên nền */
+  text-shadow:
+    0 0 10px rgba(124,243,255,0.6),
+    0 0 25px rgba(79,172,254,0.5),
+    0 0 45px rgba(181,108,255,0.35);
+
+  animation: glowMove 6s ease infinite;
+}
 
 header p {
   opacity: 0.8;
   margin-top: 12px;
   font-size: 1.15rem;
   letter-spacing: 0.5px;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(124,243,255,0.25), transparent 70%);
+  filter: blur(60px);
+  z-index: -1;
+}
+
+@keyframes glowMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* ===== GRID ===== */
@@ -88,6 +127,7 @@ header p {
   );
   opacity: 0;
   transition: 0.35s;
+  pointer-events: none; /* QUAN TRỌNG: để click được link */
 }
 
 .card:hover::before {
@@ -135,6 +175,11 @@ header p {
 }
 
 /* ===== BUTTONS ===== */
+.links {
+  position: relative;
+  z-index: 2; /* đảm bảo link nằm trên overlay */
+}
+
 .links a {
   display: inline-block;
   margin: 6px 8px 0 0;
